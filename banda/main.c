@@ -13,10 +13,8 @@ int main(){
     int X , Y;
     int **dupla;
     int banda[3];
-    int *relacionamentos;
-    int atual = 0;
-    int menor = -1;
-    int indice_menor = -1;
+    int *relacionamentos; 
+    int menor = 0; 
 
     cin >> musicos;
     cin >> pares;
@@ -31,12 +29,11 @@ int main(){
         cin >> Y;
         cin >> j;
         dupla[X-1][Y-1] = j; 
-    } 
+        dupla[Y-1][X-1] = j; 
+    }  
 
     for(i = 0 ; i < musicos ;i++){
-        for(j = 0 ; j < musicos ; j++)
-            if(i!=j && dupla[i][j] != 0 )
-                dupla[j][i] = dupla[i][j];
+        relacionamentos[i]=0;
     }
 
     for(i = 0 ; i < musicos ;i++){
@@ -44,25 +41,16 @@ int main(){
             relacionamentos[i] += dupla[i][j];
         }
     }
-
         
     for(i=0;i<musicos;i++){
         if(i<3) banda[i] = i;
         else{
+            menor = min(relacionamentos[banda[2]],min(relacionamentos[banda[1]],relacionamentos[banda[0]]));
             for(j=0;j<3;j++){
-                atual = relacionamentos[i];
-
-                if(menor == -1 || menor > relacionamentos[banda[j]]) {
-                    menor = relacionamentos[banda[j]];
-                    indice_menor = j;
-                }
+                if(menor == relacionamentos[banda[j]])
+                    if( menor < relacionamentos[i])
+                        banda[j] = i;
             }
-            if(atual > menor && menor != -1){
-                banda[indice_menor] = i;
-            }
-            
-            menor = -1;
-            indice_menor = -1;
         }
     }
 
