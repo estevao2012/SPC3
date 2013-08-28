@@ -30,25 +30,22 @@ int main(){
     }  
 
     for(i = 0 ; i < musicos ;i++){
-        relacionamentos[i]=0;
-    }
-
-    for(i = 0 ; i < musicos ;i++){
         for(j = 0 ; j < musicos ; j++){
             relacionamentos[i] += dupla[i][j];
         }
+        // cout << i+1 << " : " << relacionamentos[i] << endl;
     }
-        
-    for(i=0;i<musicos;i++){
-        if(i<3) banda[i] = i;
-        else{
-            menor = min(relacionamentos[banda[2]],min(relacionamentos[banda[1]],relacionamentos[banda[0]]));
-            for(j=0;j<3;j++){
-                if(menor == relacionamentos[banda[j]])
-                    if( menor < relacionamentos[i])
-                        banda[j] = i;
-            }
-        }
+
+    for(i=0;i<3;i++)
+        banda[i] = i;
+    
+    for(i=3;i<musicos;i++){ 
+        menor = min(relacionamentos[banda[0]],min(relacionamentos[banda[1]],relacionamentos[banda[2]]));
+        for(j=0;j<3;j++){
+            if(menor == relacionamentos[banda[j]])
+                if( menor < relacionamentos[i])
+                    banda[j] = i;
+        } 
     }
 
     for(i=0;i<3;i++)
